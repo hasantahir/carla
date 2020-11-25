@@ -78,6 +78,9 @@ transform = Transform(Location(x=230, y=195, z=40), Rotation(yaw=180))
 actor = world.spawn_actor(blueprint, transform)
 ```
 
+!!! Important
+    CARLA uses the [Unreal Engine coordinates system](https://carla.readthedocs.io/en/latest/python_api/#carlarotation). Remember that [`carla.Rotation`](https://carla.readthedocs.io/en/latest/python_api/#carlarotation) constructor is defined as `(pitch, yaw, roll)`, that differs from Unreal Engine Editor `(roll, pitch, yaw)`. 
+
 The actor will not be spawned in case of collision at the specified location. No matter if this happens with a static object or another actor. It is possible to try avoiding these undesired spawning collisions.  
 
 * `map.get_spawn_points()` __for vehicles__. Returns a list of recommended spawning points. 
@@ -93,7 +96,7 @@ spawn_point = carla.Transform()
 spawn_point.location = world.get_random_location_from_navigation()
 ```
 
-An actor can be attached to another one when spawned. Actors follow the parent they are attached to. This is specially useful for sensors. The attachment can be rigid or eased. It is defined by the helper class [carla.AttachmentType](python_api.md#carla.AttachmentType).  
+An actor can be attached to another one when spawned. Actors follow the parent they are attached to. This is specially useful for sensors. The attachment can be rigid (proper to retrieve precise data) or with an eased movement according to its parent. It is defined by the helper class [carla.AttachmentType](python_api.md#carla.AttachmentType).  
 
 The next example attaches a camera rigidly to a vehicle, so their relative position remains fixed. 
 
